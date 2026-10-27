@@ -1,0 +1,90 @@
+<%- include('partials/header') %>
+
+<section class="page-head">
+  <div>
+    <h1>Trades</h1>
+    <p class="lede">Proposals waiting on you, proposals waiting on others, and deals already done.</p>
+  </div>
+</section>
+
+<section class="stack">
+  <h2 class="section-title">Waiting on others</h2>
+  <% if (!outgoing.length) { %>
+    <p class="empty">You have no open proposals. <a href="/books">Find a book</a> to trade for.</p>
+  <% } else { %>
+    <ul class="trade-list">
+      <% outgoing.forEach(function (t) { %>
+        <li class="trade-card">
+          <div class="trade-body">
+            <span class="pill pill-waiting"><%= statusLabel(t.status) %></span>
+            <p class="trade-line">
+              You offered
+              <strong><%= t.offeredBooks.map(function (b) { return b.title; }).join(', ') %></strong>
+              for <strong><%= t.wantedBooks.map(function (b) { return b.title; }).join(', ') %></strong>
+              from <a href="/users/<%= t.toUserId %>"><%= t.toUser ? t.toUser.username : 'a member' %></a>
+            </p>
+            <p class="hint">Waiting for <%= t.toUser ? t.toUser.username : 'them' %> to accept.</p>
+          </div>
+          <form class="inline" action="/trades/<%= t.id %>/cancel" method="post">
+            <button class="btn btn-ghost btn-sm" type="submit">Withdraw</button>
+          </form>
+        </li>
+      <% }) %>
+    </ul>
+  <% } %>
+</section>
+
+<section class="stack">
+  <h2 class="section-title">Waiting on you</h2>
+  <% if (!incoming.length) { %>
+    <p class="empty">No proposals are waiting for you right now.</p>
+  <% } else { %>
+    <ul class="trade-list">
+      <% incoming.forEach(function (t) { %>
+        <li class="trade-card">
+          <div class="trade-body">
+            <span class="pill pill-waiting"><%= statusLabel(t.status) %></span>
+            <p class="trade-line">
+              <a href="/users/<%= t.fromUserId %>"><%= t.fromUser ? t.fromUser.username : 'A member' %></a>
+              offers <strong><%= t.offeredBooks.map(function (b) { return b.title; }).join(', ') %></strong>
+              for your <strong><%= t.wantedBooks.map(function (b) { return b.title; }).join(', ') %></strong>
+            </p>
+          </div>
+          <div class="trade-actions">
+            <form class="inline" action="/trades/<%= t.id %>/accept" method="post">
+              <button class="btn btn-primary btn-sm" type="submit">Accept trade</button>
+            </form>
+            <form class="inline" action="/trades/<%= t.id %>/decline" method="post">
+              <button class="btn btn-ghost btn-sm" type="submit">Decline</button>
+            </form>
+          </div>
+        </li>
+      <% }) %>
+    </ul>
+  <% } %>
+</section>
+
+<section class="stack">
+  <h2 class="section-title">History</h2>
+  <% if (!history.length) { %>
+    <p class="empty">Nothing here yet — decided proposals will be recorded.</p>
+  <% } else { %>
+    <ul class="trade-list">
+      <% history.forEach(function (t) { %>
+        <li class="trade-card">
+          <div class="trade-body">
+            <span class="pill pill-<%= t.status %>"><%= statusLabel(t.status) %></span>
+            <p class="trade-line">
+              <a href="/users/<%= t.fromUserId %>"><%= t.fromUser ? t.fromUser.username : 'someone' %></a>
+              → <a href="/users/<%= t.toUserId %>"><%= t.toUser ? t.toUser.username : 'someone' %></a>:
+              <strong><%= t.offeredBooks.map(function (b) { return b.title; }).join(', ') || 'nothing' %></strong>
+              for <strong><%= t.wantedBooks.map(function (b) { return b.title; }).join(', ') %></strong>
+            </p>
+          </div>
+        </li>
+      <% }) %>
+    </ul>
+  <% } %>
+</section>
+
+<%- include('partials/footer') %>

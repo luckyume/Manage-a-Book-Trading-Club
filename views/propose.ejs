@@ -1,0 +1,45 @@
+<%- include('partials/header') %>
+
+<nav class="crumbs"><a href="/books">← All books</a></nav>
+
+<section class="page-head">
+  <div>
+    <h1>Propose a trade</h1>
+    <p class="lede">
+      You want <strong><%= book.title %></strong>
+      <% if (owner && owner.username) { %>from <%= owner.username %><% } %>.
+      Pick the book of yours you would hand over in return.
+    </p>
+  </div>
+</section>
+
+<% if (error) { %><p class="form-error" role="alert"><%= error %></p><% } %>
+
+<% if (!myBooks.length) { %>
+  <p class="empty">
+    You have no books listed yet, so there is nothing to offer.
+    <a href="/books/new">Add a book first</a>.
+  </p>
+<% } else { %>
+  <form class="form" action="/books/<%= book.id %>/trades" method="post">
+    <fieldset class="choice-list">
+      <legend>Books you can offer</legend>
+      <% myBooks.forEach(function (mine) { %>
+        <label class="choice">
+          <input type="checkbox" name="offered" value="<%= mine.id %>" />
+          <span>
+            <strong><%= mine.title %></strong>
+            <span class="book-author"><%= mine.author || 'Author unknown' %></span>
+          </span>
+        </label>
+      <% }) %>
+    </fieldset>
+    <div class="form-actions">
+      <button class="btn btn-primary" type="submit">Propose trade</button>
+      <a class="btn btn-ghost" href="/books/<%= book.id %>">Cancel</a>
+    </div>
+    <p class="hint">Your proposal stays <strong>pending</strong> until the other member accepts it.</p>
+  </form>
+<% } %>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,17 @@
+{
+  "name": "book-exchange",
+  "version": "1.0.0",
+  "description": "Manage a Book Trading Club — view books, add books, edit profile settings and propose trades.",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "test": "node --test"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^4.21.2"
+  }
+}

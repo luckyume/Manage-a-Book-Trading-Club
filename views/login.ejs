@@ -1,0 +1,51 @@
+<%- include('partials/header') %>
+
+<section class="page-head">
+  <div>
+    <h1>Sign in</h1>
+    <p class="lede">Pick up your shelf where you left it.</p>
+  </div>
+</section>
+
+<% if (error) { %><p class="form-error" role="alert"><%= error %></p><% } %>
+
+<div class="auth-grid">
+  <form class="form" action="/login" method="post">
+    <h2 class="section-title">Existing member</h2>
+    <input type="hidden" name="next" value="<%= next %>" />
+    <p>
+      <label for="username">Username</label>
+      <input id="username" name="username" type="text" required maxlength="40" autocomplete="username" />
+    </p>
+    <p>
+      <label for="password">Password</label>
+      <input id="password" name="password" type="password" required autocomplete="current-password" />
+    </p>
+    <div class="form-actions">
+      <button class="btn btn-primary" type="submit">Sign in</button>
+    </div>
+    <p class="hint">Demo members: <code>ada</code>, <code>grace</code>, <code>alan</code> — password <code>password</code>.</p>
+  </form>
+
+  <form class="form" action="/signup" method="post">
+    <h2 class="section-title">New to the club</h2>
+    <p>
+      <label for="new-username">Username</label>
+      <input id="new-username" name="username" type="text" required maxlength="40" />
+    </p>
+    <p>
+      <label for="new-password">Password</label>
+      <input id="new-password" name="password" type="password" required minlength="4" />
+    </p>
+    <p>
+      <label for="new-fullName">Full name</label>
+      <input id="new-fullName" name="fullName" type="text" maxlength="120" />
+    </p>
+    <div class="form-actions">
+      <button class="btn btn-ghost" type="submit">Create account</button>
+    </div>
+    <p class="hint">You can add your city and state afterwards in Settings.</p>
+  </form>
+</div>
+
+<%- include('partials/footer') %>

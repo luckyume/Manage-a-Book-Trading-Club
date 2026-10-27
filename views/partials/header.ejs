@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title><%= title %> · Marginalia</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="bar">
+      <a class="brand" href="/books">
+        <span class="brand-mark" aria-hidden="true">❦</span>
+        <span class="brand-name">Marginalia</span>
+        <span class="brand-sub">book trading club</span>
+      </a>
+      <nav class="nav" aria-label="Main">
+        <a href="/books">Books</a>
+        <% if (currentUser) { %><a href="/trades">Trades</a><% } %>
+        <a href="/users">Members</a>
+      </nav>
+      <div class="auth">
+        <% if (currentUser) { %>
+          <a href="/settings">Settings</a>
+          <a class="whoami" href="/users/<%= currentUser.id %>">@<%= currentUser.username %></a>
+          <form class="inline" action="/logout" method="post">
+            <button class="btn btn-ghost" type="submit">Sign out</button>
+          </form>
+        <% } else { %>
+          <a class="btn btn-ghost" href="/login">Sign in</a>
+        <% } %>
+      </div>
+    </div>
+    <% if (notice) { %><p class="notice" role="status"><%= notice %></p><% } %>
+  </header>
+  <main class="container">

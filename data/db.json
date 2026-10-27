@@ -1,0 +1,97 @@
+{
+  "users": [
+    {
+      "id": "510a91f8233e4b8c1dff6aff",
+      "username": "ada",
+      "password": "087f56b60ae712fb6540a00eef7a14d5:7f5428540641b58bac3d9952dc49ba2e59228c2cf225b37b57f243a5f4c6ce75",
+      "fullName": "Ada Lovelace",
+      "city": "Portland",
+      "state": "OR",
+      "createdAt": 1793093143434
+    },
+    {
+      "id": "05052ba72f837b56ecc24aa1",
+      "username": "grace",
+      "password": "dcd894ccd783891c70587242cea51934:b466ae64c40dd9053521ed90ae46b4059ddd99be335b5866f407b416815ae68a",
+      "fullName": "Grace Hopper",
+      "city": "Arlington",
+      "state": "VA",
+      "createdAt": 1793093143434
+    },
+    {
+      "id": "1c21c0dc4488e086d7db2818",
+      "username": "alan",
+      "password": "1baab401e2be8725a21bda80720739b1:7f792903a1c0e6a800fc0e6aa2e9443ab7d694a3e09e7c4e61915a9b12f78a1e",
+      "fullName": "Alan Turing",
+      "city": "Wilmslow",
+      "state": "UK",
+      "createdAt": 1793093143434
+    }
+  ],
+  "books": [
+    {
+      "id": "63c4d0070ef5c63d72a891a7",
+      "ownerId": "05052ba72f837b56ecc24aa1",
+      "title": "Elements of Analytical Engines",
+      "author": "L. F. Menabrea",
+      "description": "Notes on Babbage’s engine, lightly read.",
+      "createdAt": 1793093143434
+    },
+    {
+      "id": "77ca1a82b9f3ed64c6a95acd",
+      "ownerId": "510a91f8233e4b8c1dff6aff",
+      "title": "The Tick-Tock of Time",
+      "author": "A. A. Lovelace",
+      "description": "Poetry meets programming. Dog-eared chapter 3.",
+      "createdAt": 1793093143434
+    },
+    {
+      "id": "fb2833cace163cea3e564446",
+      "ownerId": "510a91f8233e4b8c1dff6aff",
+      "title": "Compiler Construction",
+      "author": "Grace Hopper",
+      "description": "First edition. The margins are full of notes.",
+      "createdAt": 1793093143434
+    },
+    {
+      "id": "4ab6d086a57893cc20c79f0e",
+      "ownerId": "05052ba72f837b56ecc24aa1",
+      "title": "Grace Hopper: Admiral of the Cyber Sea",
+      "author": "K. Walsh",
+      "description": "Biography, paperback, great condition.",
+      "createdAt": 1793093143434
+    },
+    {
+      "id": "865b678bc17c4af36f888c14",
+      "ownerId": "1c21c0dc4488e086d7db2818",
+      "title": "On Computable Numbers",
+      "author": "A. M. Turing",
+      "description": "The 1936 paper, bound as a booklet.",
+      "createdAt": 1793093143434
+    },
+    {
+      "id": "fde93f7173ad0f881538b1d4",
+      "ownerId": "1c21c0dc4488e086d7db2818",
+      "title": "The Enigma",
+      "author": "A. Hodges",
+      "description": "About the code-breaking years. Some tea stains.",
+      "createdAt": 1793093143434
+    }
+  ],
+  "trades": [
+    {
+      "id": "025fbc8a890d196aab65d4f7",
+      "fromUserId": "05052ba72f837b56ecc24aa1",
+      "toUserId": "510a91f8233e4b8c1dff6aff",
+      "offeredBookIds": [
+        "fb2833cace163cea3e564446"
+      ],
+      "wantedBookIds": [
+        "63c4d0070ef5c63d72a891a7"
+      ],
+      "status": "accepted",
+      "createdAt": 1793093410331,
+      "decidedAt": 1793093485090
+    }
+  ]
+}

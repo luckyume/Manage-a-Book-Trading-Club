@@ -1,0 +1,36 @@
+<%- include('partials/header') %>
+
+<section class="page-head">
+  <div>
+    <h1>Settings</h1>
+    <p class="lede">Where other members will find you when a trade is agreed.</p>
+  </div>
+</section>
+
+<% if (error) { %><p class="form-error" role="alert"><%= error %></p><% } %>
+
+<form class="form" action="/settings" method="post">
+  <p>
+    <label for="username">Username</label>
+    <input id="username" type="text" value="<%= currentUser.username %>" disabled />
+    <span class="hint">Your handle can’t be changed here.</span>
+  </p>
+  <p>
+    <label for="fullName">Full name</label>
+    <input id="fullName" name="fullName" type="text" value="<%= currentUser.fullName || '' %>" maxlength="120" placeholder="Ada Lovelace" />
+  </p>
+  <p>
+    <label for="city">City</label>
+    <input id="city" name="city" type="text" value="<%= currentUser.city || '' %>" maxlength="120" placeholder="Portland" />
+  </p>
+  <p>
+    <label for="state">State</label>
+    <input id="state" name="state" type="text" value="<%= currentUser.state || '' %>" maxlength="120" placeholder="OR" />
+  </p>
+  <div class="form-actions">
+    <button class="btn btn-primary" type="submit">Save settings</button>
+    <a class="btn btn-ghost" href="/users/<%= currentUser.id %>">View my profile</a>
+  </div>
+</form>
+
+<%- include('partials/footer') %>

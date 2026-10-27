@@ -1,0 +1,47 @@
+<%- include('partials/header') %>
+
+<nav class="crumbs"><a href="/users">← All members</a></nav>
+
+<section class="page-head profile-head">
+  <div class="avatar avatar-lg" aria-hidden="true"><%= profile.username.slice(0, 1).toUpperCase() %></div>
+  <div>
+    <h1><%= profile.fullName || profile.username %></h1>
+    <p class="handle">@<%= profile.username %></p>
+    <p class="place"><%= locationOf(profile) || 'location not set' %></p>
+  </div>
+</section>
+
+<section class="stack">
+  <h2 class="section-title">Books on the shelf</h2>
+  <% if (!books.length) { %>
+    <p class="empty">No books listed.</p>
+  <% } else { %>
+    <ul class="plain-list">
+      <% books.forEach(function (book) { %>
+        <li>
+          <a href="/books/<%= book.id %>"><strong><%= book.title %></strong></a>
+          <span class="book-author"> — <%= book.author || 'Author unknown' %></span>
+        </li>
+      <% }) %>
+    </ul>
+  <% } %>
+</section>
+
+<section class="stack">
+  <h2 class="section-title">Completed trades</h2>
+  <% if (!trades.length) { %>
+    <p class="empty">No trades completed yet.</p>
+  <% } else { %>
+    <ul class="plain-list">
+      <% trades.forEach(function (t) { %>
+        <li>
+          <span class="pill pill-<%= t.status %>"><%= statusLabel(t.status) %></span>
+          <%= t.offeredBooks.map(function (b) { return b.title; }).join(', ') || 'nothing' %>
+          for <%= t.wantedBooks.map(function (b) { return b.title; }).join(', ') %>
+        </li>
+      <% }) %>
+    </ul>
+  <% } %>
+</section>
+
+<%- include('partials/footer') %>

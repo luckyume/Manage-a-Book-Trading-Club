@@ -1,0 +1,33 @@
+<%- include('partials/header') %>
+
+<nav class="crumbs"><a href="/books">← All books</a></nav>
+
+<section class="page-head">
+  <div>
+    <h1>Add a book</h1>
+    <p class="lede">Post something you have read and would pass on.</p>
+  </div>
+</section>
+
+<% if (error) { %><p class="form-error" role="alert"><%= error %></p><% } %>
+
+<form class="form" action="/books" method="post">
+  <p>
+    <label for="title">Title <span class="req">required</span></label>
+    <input id="title" name="title" type="text" value="<%= book ? book.title : '' %>" required maxlength="160" placeholder="The Left Hand of Darkness" />
+  </p>
+  <p>
+    <label for="author">Author</label>
+    <input id="author" name="author" type="text" value="<%= book ? book.author : '' %>" maxlength="160" placeholder="Ursula K. Le Guin" />
+  </p>
+  <p>
+    <label for="description">Description</label>
+    <textarea id="description" name="description" rows="4" maxlength="600" placeholder="Condition, edition, why you loved it…"><%= book ? book.description : '' %></textarea>
+  </p>
+  <div class="form-actions">
+    <button class="btn btn-primary" type="submit">Add to the shelf</button>
+    <a class="btn btn-ghost" href="/books">Cancel</a>
+  </div>
+</form>
+
+<%- include('partials/footer') %>

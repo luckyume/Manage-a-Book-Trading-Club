@@ -1,0 +1,61 @@
+<%- include('partials/header') %>
+
+<section class="page-head">
+  <div>
+    <h1>The shelf</h1>
+    <p class="lede">
+      Every book every member has posted, in one place. Found something you want?
+      Offer one of yours in return.
+    </p>
+  </div>
+  <div class="page-actions">
+    <% if (currentUser) { %>
+      <a class="btn btn-primary" href="/books/new">Add a book</a>
+    <% } else { %>
+      <a class="btn btn-primary" href="/login?next=%2Fbooks%2Fnew">Sign in to add a book</a>
+    <% } %>
+  </div>
+</section>
+
+<% if (!books.length) { %>
+  <p class="empty">The shelf is empty. Be the first to post a book.</p>
+<% } else { %>
+  <ul class="book-grid">
+    <% books.forEach(function (book) { %>
+      <li class="book-card">
+        <div class="book-spine" aria-hidden="true"></div>
+        <div class="book-body">
+          <div class="book-badges">
+            <% if (book.requestCount > 0) { %>
+              <span class="pill pill-requests">Requests <%= book.requestCount %></span>
+            <% } %>
+            <% if (currentUser && book.owner && book.ownerId === currentUser.id) { %>
+              <span class="pill pill-mine">Yours</span>
+            <% } %>
+          </div>
+          <h2 class="book-title"><a href="/books/<%= book.id %>"><%= book.title %></a></h2>
+          <p class="book-author"><%= book.author || 'Author unknown' %></p>
+          <% if (book.description) { %>
+            <p class="book-desc"><%= book.description %></p>
+          <% } %>
+          <p class="book-owner">
+            from
+            <% if (book.owner) { %>
+              <a href="/users/<%= book.owner.id %>"><%= book.owner.username %></a>
+              in <span class="place"><%= locationOf(book.owner) || 'parts unknown' %></span>
+            <% } else { %>
+              a departed member
+            <% } %>
+          </p>
+          <% if (currentUser && book.owner && book.ownerId !== currentUser.id) { %>
+            <a class="btn btn-primary btn-sm" href="/books/<%= book.id %>/trade">Propose trade</a>
+          <% } else if (!currentUser) { %>
+            <a class="btn btn-ghost btn-sm" href="/login?next=%2Fbooks%2F<%= book.id %>%2Ftrade">Sign in to trade</a>
+          <% } %>
+        </div>
+      </li>
+    <% }) %>
+  </ul>
+<% } %>
+
+<%- include('partials/footer') %>

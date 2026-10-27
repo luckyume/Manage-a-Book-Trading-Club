@@ -1,0 +1,56 @@
+<%- include('partials/header') %>
+
+<nav class="crumbs"><a href="/books">← All books</a></nav>
+
+<article class="detail">
+  <div class="detail-main">
+    <div class="book-badges">
+      <% if (requests.length > 0) { %>
+        <span class="pill pill-requests">Requests <%= requests.length %></span>
+      <% } %>
+      <% if (currentUser && book.ownerId === currentUser.id) { %>
+        <span class="pill pill-mine">Yours</span>
+      <% } %>
+    </div>
+    <h1 class="detail-title"><%= book.title %></h1>
+    <p class="book-author"><%= book.author || 'Author unknown' %></p>
+    <% if (book.description) { %><p class="detail-desc"><%= book.description %></p><% } %>
+
+    <p class="book-owner">
+      Posted by
+      <% if (owner) { %>
+        <a href="/users/<%= owner.id %>"><%= owner.username %></a>
+        <% if (owner.fullName) { %> (<%= owner.fullName %>)<% } %>
+        in <span class="place"><%= locationOf(owner) || 'parts unknown' %></span>
+      <% } else { %>
+        a departed member
+      <% } %>
+    </p>
+
+    <% if (currentUser && owner && owner.id !== currentUser.id) { %>
+      <a class="btn btn-primary" href="/books/<%= book.id %>/trade">Propose a trade for this book</a>
+    <% } else if (!currentUser) { %>
+      <a class="btn btn-primary" href="/login?next=%2Fbooks%2F<%= book.id %>%2Ftrade">Sign in to propose a trade</a>
+    <% } else { %>
+      <p class="hint">This one is already on your shelf.</p>
+    <% } %>
+  </div>
+
+  <aside class="detail-side">
+    <h2>Open requests</h2>
+    <% if (!requests.length) { %>
+      <p class="hint">No one has proposed a trade for this book yet.</p>
+    <% } else { %>
+      <ul class="mini-list">
+        <% requests.forEach(function (t) { %>
+          <li>
+            <a href="/users/<%= t.fromUserId %>"><%= t.fromUser ? t.fromUser.username : 'someone' %></a>
+            offered <%= t.offeredBookIds.length %> book<%= t.offeredBookIds.length === 1 ? '' : 's' %>
+          </li>
+        <% }) %>
+      </ul>
+    <% } %>
+  </aside>
+</article>
+
+<%- include('partials/footer') %>
